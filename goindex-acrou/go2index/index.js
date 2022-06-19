@@ -1,24 +1,24 @@
 // =======Options START=======
-var authConfig = {
-  siteName: "goindex", // 网站名称
-  version: "1.1.2", // 程序版本
+var  authConfig  =  {
+  siteName : "Chillx",  // site name
+  version : "1.1.2" ,  // program version
   theme: "acrou",
-  // 强烈推荐使用自己的 client_id 和 client_secret
-  client_id: "202264815644.apps.googleusercontent.com",
-  client_secret: "X4Z3ca8xfWDb1Voo-F9a7ZxJ",
-  refresh_token: "", // 授权 token
-  /**
-   * 设置要显示的多个云端硬盘；按格式添加多个
-   * [id]: 可以是 团队盘id、子文件夹id、或者"root"（代表个人盘根目录）；
-   * [name]: 显示的名称
-   * [user]: Basic Auth 的用户名
-   * [pass]: Basic Auth 的密码
-   * [protect_file_link]: Basic Auth 是否用于保护文件链接，默认值（不设置时）为 false，即不保护文件链接（方便 直链下载/外部播放 等）
-   * 每个盘的 Basic Auth 都可以单独设置。Basic Auth 默认保护该盘下所有文件夹/子文件夹路径
-   * 【注意】默认不保护文件链接，这样可以方便 直链下载/外部播放;
-   *       如果要保护文件链接，需要将 protect_file_link 设置为 true，此时如果要进行外部播放等操作，需要将 host 替换为 user:pass@host 的 形式
-   * 不需要 Basic Auth 的盘，保持 user 和 pass 同时为空即可。（直接不设置也可以）
-   * 【注意】对于id设置为为子文件夹id的盘将不支持搜索功能（不影响其他盘）。
+  // It is strongly recommended to use your own client_id and client_secret
+  client_id: "746239575955-oao9hkv614p8glrqpvuh5i8mqfoq145b.apps.googleusercontent.com", // Client id from Google Cloud Console
+    client_secret: "u5a1CSY5pNjdD2tGTU93TTnI",
+    refresh_token: "1//0dhED9i-_jVuiCgYIARAAGA0SNwF-L9IrTkgZDjQ9DsZvoco7RNxs7Vg7M-l-qKy8FI9ob8fGekLCQ9OaHJIlBfXnWhVI2YCqBJE", // Authorize token
+  /*
+   * Set multiple drives to be displayed; add multiple by format
+   * [id]: Can be team disk id, subfolder id, or "root" (representing the root directory of personal disk);
+   * [name]: Displayed name
+   * [user]: Basic Auth username
+   * [pass]: Basic Auth password
+   * [protect_file_link]: Whether Basic Auth is used to protect the file link, the default value (when not set) is false, that is, the file link is not protected (for direct link download/external playback, etc.)
+   * The Basic Auth of each disk can be set separately. Basic Auth protects all folders/subfolders paths under this disk by default
+   * [Note] File links are not protected by default, which can facilitate direct link download/external playback;
+   * If you want to protect the file link, you need to set protect_file_link to true. If you want to perform external playback and other operations, you need to replace host with user:pass@host
+   * No Basic Auth disk is needed, just keep user and pass empty at the same time. (It can be set directly without setting)
+   * [Note] The search function is not supported for the disk whose id is set as the subfolder id (it does not affect other disks).
    */
   roots: [
     {
@@ -40,69 +40,68 @@ var authConfig = {
     },
   ],
   default_gd: 0,
-  /**
-   * 文件列表页面每页显示的数量。【推荐设置值为 100 到 1000 之间】；
-   * 如果设置大于1000，会导致请求 drive api 时出错；
-   * 如果设置的值过小，会导致文件列表页面滚动条增量加载（分页加载）失效；
-   * 此值的另一个作用是，如果目录内文件数大于此设置值（即需要多页展示的），将会对首次列目录结果进行缓存。
-   */
+	/**
+	    * The number displayed on each page of the file list page. [The recommended setting is between 100 and 1000];
+	    * If the setting is greater than 1000, it will cause an error when requesting drive api;
+	    * If the set value is too small, it will cause the incremental loading of the scroll bar of the file list page (paged loading) to fail;
+	    * Another effect of this value is that if the number of files in the directory is greater than this setting value (that is, multiple pages are required), the results of the first directory listing will be cached.
+	    */
   files_list_page_size: 50,
-  /**
-   * 搜索结果页面每页显示的数量。【推荐设置值为 50 到 1000 之间】；
-   * 如果设置大于1000，会导致请求 drive api 时出错；
-   * 如果设置的值过小，会导致搜索结果页面滚动条增量加载（分页加载）失效；
-   * 此值的大小影响搜索操作的响应速度。
-   */
+	/**
+	    * The number displayed on each page of the search result page. [The recommended setting is between 50 and 1000];
+	    * If the setting is greater than 1000, it will cause an error when requesting drive api;
+	    * If the value set is too small, it will cause the incremental loading of the scroll bar of the search results page (paged loading) to fail;
+	    * The size of this value affects the response speed of search operations.
+	    */
   search_result_list_page_size: 50,
-  // 确认有 cors 用途的可以开启
+// Confirm that cors can be opened
   enable_cors_file_down: false,
-  /**
-   * 上面的 basic auth 已经包含了盘内全局保护的功能。所以默认不再去认证 .password 文件内的密码;
-   * 如果在全局认证的基础上，仍需要给某些目录单独进行 .password 文件内的密码验证的话，将此选项设置为 true;
-   * 【注意】如果开启了 .password 文件密码验证，每次列目录都会额外增加查询目录内 .password 文件是否存在的开销。
-   */
+	/**
+	    * The basic auth above already includes the function of global protection in the disk. Therefore, the password in the .password file is no longer authenticated by default;
+	    * If on the basis of global authentication, you still need to separately verify the password in the .password file for some directories, set this option to true;
+	    * [Note] If the password verification of the .password file is enabled, every time the directory is listed, the overhead of querying whether the .password file exists in the directory will be added.
+	    */
   enable_password_file_verify: false,
 };
-
 var themeOptions = {
-  cdn: "https://cdn.jsdelivr.net/gh/alx-xlx/goindex",
-  // 主题版本号
-  version: "2.0.8-darkmode-0.1",
-  //可选默认系统语言:en/zh-chs/zh-cht
+  cdn: "https://cdn.jsdelivr.net/gh/Aicirou/goindex-theme-acrou",
+// Theme version number
+  version: "2.0.8",
+//Optional default system language: en/zh-chs/zh-cht
   languages: "en",
   render: {
-    /**
-     * 是否渲染HEAD.md文件
-     * Render HEAD.md file
-     */
+		/**
+		      * Whether to render the HEAD.md file
+		      * Render HEAD.md file
+		      */
     head_md: false,
-    /**
-     * 是否渲染README.md文件
-     * Render README.md file
-     */
+		/**
+		      * Whether to render the README.md file
+		      * Render README.md file
+		      */
     readme_md: false,
-    /**
-     * 是否渲染文件/文件夹描述
-     * Render file/folder description or not
-     */
-    desc: false,
+		/**
+		      * Whether to render file/folder description
+		      * Render file/folder description or not
+		      */
+    desc: true,
   },
-  /**
-   * 视频播放器选项
-   * Video player options
-   */
+	/**
+	    * Video player options
+	    * Video player options
+	    */
   video: {
-    /**
-     * 播放器api（不指定则使用默认播放器）
-     * Player api(Use default player if not specified)
-     */
+		/**
+		      * Player api (if not specified, the default player will be used)
+		      * Player api(Use default player if not specified)
+		      */
     api: "",
     autoplay: true,
   },
-  /**
-   * 音频播放器选项
-   * Audio player options
-   */
+	/**
+	    * Audio player options
+	    * Audio player options
+	    */
   audio: {},
 };
 // =======Options END=======
@@ -112,7 +111,7 @@ var themeOptions = {
  */
 const FUNCS = {
   /**
-   * 转换成针对谷歌搜索词法相对安全的搜索关键词
+	 * Converted into relatively safe search keywords for Google search lexicon
    */
   formatSearchKeyword: function(keyword) {
     let nothing = "";
@@ -148,14 +147,36 @@ function html(current_drive_order = 0, model = {}) {
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/> <title>${authConfig.siteName}</title> <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1"><meta name="description" content="Combining the power of Cloudflare Workers and Google Drive will allow you to index your files on the browser on Cloudflare Workers."><meta name="theme-color" content="#FF3300"><meta name="application-name" content="goindex"><meta name="robots" content="index, follow"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://i.imgur.com/rOyuGjA.gif"><meta name="twitter:description" content="Combining the power of Cloudflare Workers and Google Drive will allow you to index your files on the browser on Cloudflare Workers."><meta name="keywords" content="goindex, google, drive, goindex, gdindex, classic, material, workers-script, oauth-consent-screen, google-drive, cloudflare-workers, themes"><meta name="twitter:title" content="Goindex"><meta name="twitter:url" content="https://github.com/alx-xlx/goindex"><link rel="shortcut icon" href="https://i.imgur.com/rOyuGjA.gif"><meta property="og:site_name" content="Goindex"><meta property="og:type" content="website"><meta property="og:image" content="https://i.imgur.com/rOyuGjA.gif"><meta property="og:description" content="Combining the power of Cloudflare Workers and Google Drive will allow you to index your files on the browser on Cloudflare Workers."><meta property="og:title" content="Goindex"><meta property="og:url" content="https://github.com/alx-xlx/goindex"><link rel="apple-touch-icon" href="https://i.imgur.com/rOyuGjA.gif"><link rel="icon" type="image/png" sizes="32x32" href="https://i.imgur.com/rOyuGjA.gif"><meta name="google-site-verification" content="OD_AXMYw-V6ID9xQUb2Wien9Yy8IJSyfBUyejYNB3CU"/><script async src="https://www.googletagmanager.com/gtag/js?id=UA-86099016-6"></script><script>window.dataLayer=window.dataLayer || []; function gtag(){dataLayer.push(arguments);}gtag('js', new Date()); gtag('config', 'UA-86099016-6');</script><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MR47R4M');</script> <style>@import url(${themeOptions.cdn}@${themeOptions.version}/goindex-acrou/dist/style.min.css); </style> <script>window.gdconfig=JSON.parse('${JSON.stringify({version: authConfig.version, themeOptions: themeOptions,})}'); window.themeOptions=JSON.parse('${JSON.stringify(themeOptions)}'); window.gds=JSON.parse('${JSON.stringify( authConfig.roots.map((it)=> it.name) )}'); window.MODEL=JSON.parse('${JSON.stringify(model)}'); window.current_drive_order=${current_drive_order}; </script>
+<meta charset="utf-8"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/> 
+<link rel="icon" type="image/png" sizes="32x32" href="https://i.imgur.com/rOyuGjA.gif">
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-86099016-6">
+</script>
+<script>window.dataLayer=window.dataLayer || []; function gtag(){dataLayer.push(arguments);}gtag('js', new Date()); gtag('config', 'UA-86099016-6');</script>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MR47R4M');</script> 
+  <title>${authConfig.siteName}</title>
+  <style>
+    @import url(${themeOptions.cdn}@${themeOptions.version}/dist/style.min.css);
+  </style>
+  <script>
+    window.gdconfig = JSON.parse('${JSON.stringify({
+      version: authConfig.version,
+      themeOptions: themeOptions,
+    })}');
+    window.themeOptions = JSON.parse('${JSON.stringify(themeOptions)}');
+    window.gds = JSON.parse('${JSON.stringify(
+      authConfig.roots.map((it) => it.name)
+    )}');
+    window.MODEL = JSON.parse('${JSON.stringify(model)}');
+    window.current_drive_order = ${current_drive_order};
+  </script>
 </head>
 <body>
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MR47R4M"height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div id="app"></div>
     <script src="${themeOptions.cdn}@${
     themeOptions.version
-  }/goindex-acrou/dist/app.min.js"></script>
+  }/dist/app.min.js">
+  </script>
 </body>
 </html>
 `;
@@ -176,7 +197,7 @@ async function handleRequest(request) {
       await gd.init();
       gds.push(gd);
     }
-    // 这个操作并行，提高效率
+// This operation is parallel to improve efficiency
     let tasks = [];
     gds.forEach((gd) => {
       tasks.push(gd.initRootType());
@@ -186,14 +207,14 @@ async function handleRequest(request) {
     }
   }
 
-  // 从 path 中提取 drive order
-  // 并根据 drive order 获取对应的 gd instance
+	// Extract drive order from path
+	   // and get the corresponding gd instance according to drive order
   let gd;
   let url = new URL(request.url);
   let path = decodeURI(url.pathname);
 
   /**
-   * 重定向至起始页
+* Redirect to the start page
    * @returns {Response}
    */
   function redirectToIndexPage() {
@@ -205,11 +226,11 @@ async function handleRequest(request) {
 
   if (path == "/") return redirectToIndexPage();
   if (path.toLowerCase() == "/favicon.ico") {
-    // 后面可以找一个 favicon
+// You can find a favicon later
     return new Response("", { status: 404 });
   }
 
-  // 特殊命令格式
+// Special command format
   const command_reg = /^\/(?<num>\d+):(?<command>[a-zA-Z0-9]+)(\/.*)?$/g;
   const match = command_reg.exec(path);
   let command;
@@ -225,14 +246,14 @@ async function handleRequest(request) {
     for (const r = gd.basicAuthResponse(request); r; ) return r;
     command = match.groups.command;
 
-    // 搜索
+// search for
     if (command === "search") {
       if (request.method === "POST") {
-        // 搜索结果
+// search results
         return handleSearch(request, gd);
       } else {
         const params = url.searchParams;
-        // 搜索页面
+// search page
         return new Response(
           html(gd.order, {
             q: params.get("q") || "",
@@ -261,7 +282,7 @@ async function handleRequest(request) {
   path = path.replace(reg, (p1, p2) => {
     return p2 + "/";
   });
-  // 期望的 path 格式
+// Expected path format
   const common_reg = /^\/\d+:\/.*$/g;
   try {
     if (!path.match(common_reg)) {
@@ -324,7 +345,7 @@ async function apiRequest(request, gd) {
     let deferred_pass = gd.password(path);
     let body = await request.text();
     body = JSON.parse(body);
-    // 这样可以提升首次列目录时的速度。缺点是，如果password验证失败，也依然会产生列目录的开销
+// This can increase the speed when listing the directory for the first time. The disadvantage is that if the password verification fails, the overhead of listing directories will still be incurred
     let deferred_list_result = gd.list(
       path,
       body.page_token,
@@ -350,7 +371,7 @@ async function apiRequest(request, gd) {
   }
 }
 
-// 处理 search
+// process search
 async function handleSearch(request, gd) {
   const option = {
     status: 200,
@@ -367,10 +388,10 @@ async function handleSearch(request, gd) {
 }
 
 /**
- * 处理 id2path
- * @param request 需要 id 参数
+* Process id2path
+ * @param request Require id parameter
  * @param gd
- * @returns {Promise<Response>} 【注意】如果从前台接收的id代表的项目不在目标gd盘下，那么response会返回给前台一个空字符串""
+ * @returns {Promise<Response>} [Note] If the item represented by the id received from the front desk is not under the target gd disk, the response will return an empty string "" to the front desk
  */
 async function handleId2Path(request, gd) {
   const option = {
@@ -385,13 +406,13 @@ async function handleId2Path(request, gd) {
 
 class googleDrive {
   constructor(authConfig, order) {
-    // 每个盘对应一个order，对应一个gd实例
+    // Each disk corresponds to an order, corresponding to a gd instance
     this.order = order;
     this.root = authConfig.roots[order];
     this.root.protect_file_link = this.root.protect_file_link || false;
     this.url_path_prefix = `/${order}:`;
     this.authConfig = authConfig;
-    // TODO: 这些缓存的失效刷新策略，后期可以制定一下
+    // TODO: These cache invalidation refresh strategies can be formulated later
     // path id
     this.paths = [];
     // path file
@@ -409,20 +430,20 @@ class googleDrive {
   }
 
   /**
-   * 初次授权；然后获取 user_drive_real_root_id
+   * Initial authorization; then get user_drive_real_root_id
    * @returns {Promise<void>}
    */
   async init() {
     await this.accessToken();
-    /*await (async () => {
-            // 只获取1次
-            if (authConfig.user_drive_real_root_id) return;
-            const root_obj = await (gds[0] || this).findItemById('root');
-            if (root_obj && root_obj.id) {
-                authConfig.user_drive_real_root_id = root_obj.id
-            }
-        })();*/
-    // 等待 user_drive_real_root_id ，只获取1次
+		/*await (async () => {
+		             // Only get 1 time
+		             if (authConfig.user_drive_real_root_id) return;
+		             const root_obj = await (gds[0] || this).findItemById('root');
+		             if (root_obj && root_obj.id) {
+		                 authConfig.user_drive_real_root_id = root_obj.id
+		             }
+		         })();*/
+		     // Wait for user_drive_real_root_id, only get it once
     if (authConfig.user_drive_real_root_id) return;
     const root_obj = await (gds[0] || this).findItemById("root");
     if (root_obj && root_obj.id) {
@@ -431,7 +452,7 @@ class googleDrive {
   }
 
   /**
-   * 获取根目录类型，设置到 root_type
+   * Get the root directory type, set to root_type
    * @returns {Promise<void>}
    */
   async initRootType() {
@@ -524,7 +545,7 @@ class googleDrive {
     return obj.files[0];
   }
 
-  // 通过reqeust cache 来缓存
+// Cache through reqeust cache
   async list(path, page_token = null, page_index = 0) {
     if (this.path_children_cache == undefined) {
       // { <path> :[ {nextPageToken:'',data:{}}, {nextPageToken:'',data:{}} ...], ...}
@@ -547,7 +568,7 @@ class googleDrive {
     let id = await this.findPathId(path);
     let result = await this._ls(id, page_token, page_index);
     let data = result.data;
-    // 对有多页的，进行缓存
+    // Cache for multiple pages
     if (result.nextPageToken && data.files) {
       if (!Array.isArray(this.path_children_cache[path])) {
         this.path_children_cache[path] = [];
@@ -625,9 +646,9 @@ class googleDrive {
   }
 
   /**
-   * 通过 id 获取 share drive 信息
+   * Get share drive information by id
    * @param any_id
-   * @returns {Promise<null|{id}|any>} 任何非正常情况都返回 null
+   * @returns {Promise<null|{id}|any>} Any abnormal situation returns null
    */
   async getShareDriveObjById(any_id) {
     if (!any_id) return null;
@@ -643,7 +664,7 @@ class googleDrive {
   }
 
   /**
-   * 搜索
+   * search for
    * @returns {Promise<{data: null, nextPageToken: null, curPageIndex: number}>}
    */
   async search(origin_keyword, page_token = null, page_index = 0) {
@@ -662,7 +683,7 @@ class googleDrive {
     }
     let keyword = FUNCS.formatSearchKeyword(origin_keyword);
     if (!keyword) {
-      // 关键词为空，返回
+      // Keyword is empty, return
       return empty_result;
     }
     let words = keyword.split(/\s+/);
@@ -670,7 +691,7 @@ class googleDrive {
       "' AND name contains '"
     )}'`;
 
-    // corpora 为 user 是个人盘 ，为 drive 是团队盘。配合 driveId
+    // For corpora, user is a personal disk, and drive is a team disk. Match driveId
     let params = {};
     if (is_user_drive) {
       params.corpora = "user";
@@ -705,23 +726,23 @@ class googleDrive {
     };
   }
 
-  /**
-   * 一层一层的向上获取这个文件或文件夹的上级文件夹的 file 对象。注意：会很慢！！！
-   * 最多向上寻找到当前 gd 对象的根目录 (root id)
-   * 只考虑一条单独的向上链。
-   * 【注意】如果此id代表的项目不在目标gd盘下，那么此函数会返回null
-   *
-   * @param child_id
-   * @param contain_myself
-   * @returns {Promise<[]>}
-   */
+	/**
+	    * Get the file object of the parent folder of this file or folder upwards one by one. Note: it will be slow! ! !
+	    * Up to find the root directory of the current gd object (root id)
+	    * Only consider a single upward chain.
+	    * [Note] If the item represented by this id is not under the target gd disk, then this function will return null
+	    *
+	    * @param child_id
+	    * @param contain_myself
+	    * @returns {Promise<[]>}
+	    */
   async findParentFilesRecursion(child_id, contain_myself = true) {
     const gd = this;
     const gd_root_id = gd.root.id;
     const user_drive_real_root_id = authConfig.user_drive_real_root_id;
     const is_user_drive = gd.root_type === CONSTS.gd_root_type.user_drive;
 
-    // 自下向上查询的终点目标id
+    // End goal id for bottom-up query
     const target_top_id = is_user_drive ? user_drive_real_root_id : gd_root_id;
     const fields = CONSTS.default_file_fields;
 
@@ -761,9 +782,9 @@ class googleDrive {
   }
 
   /**
-   * 获取相对于本盘根目录的path
+   * Get the path relative to the root directory of the disk
    * @param child_id
-   * @returns {Promise<string>} 【注意】如果此id代表的项目不在目标gd盘下，那么此方法会返回空字符串""
+   * @returns {Promise<string>} [Note] If the item represented by this id is not in the target gd disk, then this method will return an empty string ""
    */
   async findPathById(child_id) {
     if (this.id_path_cache[child_id]) {
@@ -774,7 +795,7 @@ class googleDrive {
     if (!p_files || p_files.length < 1) return "";
 
     let cache = [];
-    // 把查出来的每一级的path和id都缓存一下
+    // Cache the path and id of each level found
     p_files.forEach((value, idx) => {
       const is_folder =
         idx === 0 ? p_files[idx].mimeType === CONSTS.folder_mime_type : true;
@@ -801,7 +822,7 @@ class googleDrive {
     return cache[0].path;
   }
 
-  // 根据id获取file item
+  // Get file item according to id
   async findItemById(id) {
     const is_user_drive = this.root_type === CONSTS.gd_root_type.user_drive;
     let url = `https://www.googleapis.com/drive/v3/files/${id}?fields=${
